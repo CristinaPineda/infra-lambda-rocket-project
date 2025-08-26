@@ -5,6 +5,9 @@ data "archive_file" "lambda_zip" {
   output_path = "lambda_function.zip"
 }
 
+
+data "aws_caller_identity" "current" {}
+
 # Recurso da função Lambda
 resource "aws_lambda_function" "main" {
   function_name = var.lambda_function_name
