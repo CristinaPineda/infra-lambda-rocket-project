@@ -35,3 +35,13 @@ variable "s3_bucket_name" {
   description = "The name of the S3 bucket for idempotency."
   type        = string
 }
+
+variable "aws_statefile_s3_bucket" {
+  description = "The name of the S3 bucket for storing the Terraform state file."
+  type        = string
+}
+
+variable "aws_lock_dynamodb_table" {
+  description = "The name of the DynamoDB table for state locking."
+  type        = string
+}
