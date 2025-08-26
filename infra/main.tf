@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.aws_region
-}
-
 # Data source para empacotar o código da função Lambda
 data "archive_file" "lambda_zip" {
   type        = "zip"
