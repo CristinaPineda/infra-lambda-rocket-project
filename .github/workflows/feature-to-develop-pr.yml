@@ -1,9 +1,9 @@
-name: Auto PR de Develop para Master
+name: "[FEATURE TO DEVELOP] PR aberto automaticamente"
 
 on:
   push:
     branches:
-      - develop
+      - 'feature/**'
 
 jobs:
   create-pr:
@@ -14,29 +14,29 @@ jobs:
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
-      
+
       - name: Criar Pull Request
         id: create-pr
         uses: actions/github-script@v6
         with:
           script: |
             const { owner, repo } = context.repo;
-            const branchName = 'develop';
+            const branchName = process.env.GITHUB_REF.replace('refs/heads/', '');
             const pullRequests = await github.rest.pulls.list({
               owner,
               repo,
               head: branchName,
-              base: 'master',
+              base: 'develop',
             });
-            
+
             if (pullRequests.data.length === 0) {
               const newPullRequest = await github.rest.pulls.create({
                 owner,
                 repo,
                 head: branchName,
-                base: 'master',
-                title: 'chore: Mesclar alterações da Develop para Master',
-                body: 'Este Pull Request foi criado automaticamente. Por favor, revise as alterações antes de mesclar para produção.',
+                base: 'develop',
+                title: `[FEATURE TO DEVELOP] PR aberto automaticamente - ${branchName.replace('feature/', '')}`,
+                body: 'Este Pull Request foi criado automaticamente para integrar a nova branch feature à branch de desenvolvimento.',
               });
               console.log(`Pull Request criado: ${newPullRequest.data.html_url}`);
             } else {

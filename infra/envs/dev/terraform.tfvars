@@ -1,0 +1,5 @@
+lambda_function_name = "rocket-project-dev-lambda"
+project_name         = "rocket-project"
+environment          = "dev"
+aws_region           = "sa-east-1"
+s3_bucket_name       = "rocket-project-dev-bucket"
