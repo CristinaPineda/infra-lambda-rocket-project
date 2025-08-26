@@ -21,3 +21,12 @@ resource "aws_lambda_function" "main" {
     Environment = var.environment
   }
 }
+
+resource "aws_s3_bucket" "s3_bucket_name" {
+  bucket = var.s3_bucket_name
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
