@@ -23,7 +23,7 @@ resource "aws_iam_role" "lambda_execution_role" {
 
 # 1. Política de permissão para escrever logs no CloudWatch
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
-  role       = aws_iam_role.lambda_execution_role.name
+  role       = aws_iam_role.lambda_execution_role.id
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
