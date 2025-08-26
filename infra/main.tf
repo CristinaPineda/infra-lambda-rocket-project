@@ -1,7 +1,7 @@
 # Data source para empacotar o código da função Lambda
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = "lambda_function"
+  source_dir  = "../lambda_function"
   output_path = "lambda_function.zip"
 }
 
