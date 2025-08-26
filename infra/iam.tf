@@ -27,6 +27,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
+
 # 2. Política de permissões para S3 (para ler/escrever IDs de mensagens)
 resource "aws_iam_role_policy" "lambda_s3_policy" {
   name = "${var.lambda_function_name}-s3-policy"
@@ -66,6 +67,23 @@ resource "aws_iam_role_policy" "lambda_glue_policy" {
         Effect = "Allow"
         # Permite iniciar jobs específicos do Glue
         Resource = "arn:aws:glue:*:*:job/*"
+      }
+    ]
+  })
+}
+
+# 4. Política para permitir a adição de Tags à Lambda (necessário para o Terraform)
+resource "aws_iam_role_policy" "lambda_tag_policy" {
+  name = "${var.lambda_function_name}-tag-policy"
+  role = aws_iam_role.lambda_execution_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "lambda:TagResource"
+        Effect = "Allow"
+        Resource = "arn:aws:lambda:${var.aws_region}:${data.aws_caller_identity.current.account_id}:function:${var.lambda_function_name}"
       }
     ]
   })
