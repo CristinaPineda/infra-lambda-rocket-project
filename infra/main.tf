@@ -33,3 +33,20 @@ resource "aws_s3_bucket" "s3_bucket_name" {
     Environment = var.environment
   }
 }
+
+# Data source para buscar a fila SQS existente
+data "aws_sqs_queue" "source_queue" {
+  name = var.sqs_queue_name
+}
+
+# Conecta a função Lambda à fila SQS
+resource "aws_lambda_event_source_mapping" "sqs_mapping" {
+  function_name     = aws_lambda_function.main.arn
+  event_source_arn  = data.aws_sqs_queue.source_queue.arn
+  batch_size        = var.batch_size
+  enabled           = true
+
+  depends_on = [
+    aws_iam_role_policy.lambda_sqs_policy
+  ]
+}

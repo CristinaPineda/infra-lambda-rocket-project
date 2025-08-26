@@ -88,3 +88,24 @@ resource "aws_iam_role_policy" "lambda_tag_policy" {
     ]
   })
 }
+
+# Política de permissões para a Lambda ler e processar mensagens da fila SQS
+resource "aws_iam_role_policy" "lambda_sqs_policy" {
+  name = "${var.lambda_function_name}-sqs-policy"
+  role = aws_iam_role.lambda_execution_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
+        ]
+        Effect = "Allow"
+        Resource = "arn:aws:sqs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:${var.sqs_queue_name}"
+      }
+    ]
+  })
+}
