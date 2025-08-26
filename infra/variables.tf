@@ -45,3 +45,14 @@ variable "aws_lock_dynamodb_table" {
   description = "The name of the DynamoDB table for state locking."
   type        = string
 }
+
+variable "sqs_queue_name" {
+  description = "The name of the SQS queue to connect to."
+  type        = string
+}
+
+variable "batch_size" {
+  description = "The number of messages to batch from SQS."
+  type        = number
+  default     = 10
+}
