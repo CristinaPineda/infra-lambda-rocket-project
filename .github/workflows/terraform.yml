@@ -55,7 +55,6 @@ jobs:
 
       - name: Terraform Init
         run: |
-          cd infra && \
           terraform init \
             -backend-config="bucket=${{ inputs.aws-statefile-s3-bucket }}" \
             -backend-config="key=${{ inputs.environment }}.tfstate" \
@@ -69,7 +68,6 @@ jobs:
         if: inputs.destroy == true
         id: terraform-destroy
         run: |
-          cd infra && \
           terraform workspace select -or-create ${{ inputs.environment }} && \ 
           terraform destroy \
             -var="environment=${{ inputs.environment }}" \
@@ -81,7 +79,6 @@ jobs:
         if: inputs.destroy == false
         id: terraform-plan
         run: |
-          cd infra && \
           terraform workspace select -or-create ${{ inputs.environment }} && \
           terraform plan \
             -var="environment=${{ inputs.environment }}" \
@@ -93,7 +90,6 @@ jobs:
         if: inputs.destroy == false
         id: terraform-apply
         run: |
-          cd infra && \
           terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} && \
           terraform apply \
             -lock=false \
