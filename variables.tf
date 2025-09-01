@@ -47,7 +47,7 @@ variable "glue_job_name" {
 }
 
 variable "aws_region" {
-  description = "The AWS region to deploy to."
+  description = "The AWS region to deploy the resources."
   type        = string
   default     = "sa-east-1"
 }
