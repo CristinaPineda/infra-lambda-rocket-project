@@ -62,23 +62,23 @@ jobs:
             -backend-config="dynamodb_table=${{ inputs.aws-lock-dynamodb-table }}"
 
       - name: Terraform Validate
-        run: cd infra && terraform validate
+        run: terraform validate
 
       - name: Terraform Destroy
         if: inputs.destroy == true
         id: terraform-destroy
         run: |
-          terraform workspace select -or-create ${{ inputs.environment }} && \ 
+          terraform workspace select -or-create ${{ inputs.environment }} && \
           terraform destroy \
             -var="environment=${{ inputs.environment }}" \
-            -var-file="envs/${{ inputs.environment }}/terraform.tfvars" \ 
+            -var-file="envs/${{ inputs.environment }}/terraform.tfvars" \
             -auto-approve \
             -lock=false
 
       - name: Terraform Plan
         if: inputs.destroy == false
         id: terraform-plan
-        run: cd infra && \
+        run: |
           terraform workspace select -or-create ${{ inputs.environment }} && \
           terraform plan \
             -var="environment=${{ inputs.environment }}" \
