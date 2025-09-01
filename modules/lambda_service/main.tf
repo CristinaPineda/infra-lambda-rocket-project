@@ -5,9 +5,6 @@ data "archive_file" "lambda_zip" {
   output_path = "lambda_function.zip"
 }
 
-
-data "aws_caller_identity" "current" {}
-
 # Recurso da função Lambda
 resource "aws_lambda_function" "main" {
   function_name = var.lambda_function_name
@@ -23,14 +20,12 @@ resource "aws_lambda_function" "main" {
     Project     = var.project_name
     Environment = var.environment
   }
-}
 
-resource "aws_s3_bucket" "s3_bucket_name" {
-  bucket = var.s3_bucket_name
-
-  tags = {
-    Project     = var.project_name
-    Environment = var.environment
+  environment {
+    variables = {
+      IDEMPOTENCY_BUCKET_NAME = var.s3_bucket_name
+      GLUE_JOB_NAME           = var.glue_job_name
+    }
   }
 }
 
