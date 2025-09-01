@@ -78,7 +78,7 @@ jobs:
       - name: Terraform Plan
         if: inputs.destroy == false
         id: terraform-plan
-        run: |
+        run: cd infra && \
           terraform workspace select -or-create ${{ inputs.environment }} && \
           terraform plan \
             -var="environment=${{ inputs.environment }}" \
