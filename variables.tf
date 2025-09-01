@@ -4,7 +4,7 @@ variable "project_name" {
 }
 
 variable "environment" {
-  description = "The deployment environment (dev, prod, etc.)."
+  description = "The deployment environment (e.g., 'dev', 'prod')."
   type        = string
 }
 
@@ -14,13 +14,13 @@ variable "lambda_function_name" {
 }
 
 variable "lambda_handler" {
-  description = "The handler function name."
+  description = "The Lambda function handler."
   type        = string
   default     = "lambda_function.handler"
 }
 
 variable "runtime" {
-  description = "The Lambda runtime."
+  description = "The runtime of the Lambda function."
   type        = string
   default     = "python3.9"
 }
@@ -36,17 +36,23 @@ variable "batch_size" {
   default     = 10
 }
 
-variable "s3_bucket_name" {
-  description = "The name of the S3 bucket for idempotency."
+variable "idempotency_bucket_name" {
+  description = "The name of the S3 bucket for idempotency keys."
   type        = string
 }
 
 variable "glue_job_name" {
-  description = "The name of the Glue job."
+  description = "The name of the Glue job to be triggered."
   type        = string
 }
+
 variable "aws_region" {
-  description = "The AWS region for the deployment."
+  description = "The AWS region to deploy to."
   type        = string
   default     = "sa-east-1"
+}
+
+variable "s3_bucket_name" {
+  description = "The name of the S3 bucket for idempotency."
+  type        = string
 }
