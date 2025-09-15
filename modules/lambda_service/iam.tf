@@ -1,5 +1,4 @@
 # Data source para obter o ID da conta AWS
-# Usado para construir os ARNs das políticas de forma segura
 data "aws_caller_identity" "current" {}
 
 # IAM Role de execução para a função Lambda
@@ -42,7 +41,8 @@ resource "aws_iam_role_policy" "lambda_s3_policy" {
       {
         Action = [
           "s3:GetObject",
-          "s3:PutObject"
+          "s3:PutObject",
+          "s3:DeleteObject"
         ]
         Effect = "Allow"
         Resource = [
