@@ -28,7 +28,7 @@ resource "aws_lambda_function" "main" {
 
   environment {
     variables = {
-      IDEMPOTENCY_BUCKET_NAME = var.s3_bucket_name.id
+      IDEMPOTENCY_BUCKET_NAME = var.s3_bucket_name
       GLUE_JOB_NAME           = var.glue_job_name
     }
   }
