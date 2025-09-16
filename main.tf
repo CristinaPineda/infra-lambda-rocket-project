@@ -1,4 +1,3 @@
-
 module "lambda_service" {
   source = "./modules/lambda_service"
 
