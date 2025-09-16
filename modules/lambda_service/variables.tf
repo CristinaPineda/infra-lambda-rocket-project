@@ -50,3 +50,8 @@ variable "aws_region" {
   type        = string
   default     = "sa-east-1"
 }
+
+variable "aws_statefile_s3_bucket" {
+  description = "The S3 bucket to store Terraform state files."
+  type        = string
+}
