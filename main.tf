@@ -10,6 +10,7 @@ module "lambda_service" {
   batch_size              = var.batch_size
   s3_bucket_name          = var.s3_bucket_name
   glue_job_name           = var.glue_job_name
+  aws_statefile_s3_bucket = var.aws_statefile_s3_bucket
 }
 
 terraform {
