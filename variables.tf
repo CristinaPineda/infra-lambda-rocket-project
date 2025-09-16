@@ -36,7 +36,7 @@ variable "batch_size" {
   default     = 10
 }
 
-variable "idempotency_bucket_name" {
+variable "s3_bucket_name" {
   description = "The name of the S3 bucket for idempotency keys."
   type        = string
 }
