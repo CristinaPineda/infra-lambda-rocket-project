@@ -86,7 +86,7 @@ resource "aws_iam_role_policy" "lambda_sqs_policy" {
           "sqs:GetQueueAttributes"
         ]
         Effect = "Allow"
-        Resource = "arn:aws:sqs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:${var.sqs_queue_arn}"
+        Resource = "arn:aws:sqs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:${var.sqs_queue_name}"
       }
     ]
   })
