@@ -20,8 +20,8 @@ module "lambda_service" {
   aws_statefile_s3_bucket  = var.aws_statefile_s3_bucket
   aws_lock_dynamodb_table  = var.aws_lock_dynamodb_table
   glue_job_name            = var.glue_job_name
-  
-  sqs_queue_arn = data.aws_sqs_queue.source_queue.arn
+  sqs_queue_name           = var.sqs_queue_name
+  sqs_queue_arn            = data.aws_sqs_queue.source_queue.arn
   data_output_bucket_name  = data.aws_s3_bucket.data_output.bucket
 
   s3_bucket_name           = var.s3_bucket_name
