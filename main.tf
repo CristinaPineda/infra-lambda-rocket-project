@@ -1,6 +1,6 @@
 # data sources para recursos que ja existem
 data "aws_sqs_queue" "source_queue" {
-  name = var.sqs_queue_name
+  name = var.sqs_queue_arn
 }
 
 data "aws_s3_bucket" "data_output" {
@@ -20,7 +20,6 @@ module "lambda_service" {
   aws_lock_dynamodb_table  = var.aws_lock_dynamodb_table
   glue_job_name            = var.glue_job_name
   
-  sqs_queue_name           = data.aws_sqs_queue.source_queue.name
   sqs_queue_arn            = data.aws_sqs_queue.source_queue.arn
   data_output_bucket_name  = data.aws_s3_bucket.data_output.bucket
 
