@@ -42,7 +42,7 @@ resource "aws_lambda_function" "main" {
 # Conecta a função Lambda à fila SQS
 resource "aws_lambda_event_source_mapping" "sqs_mapping" {
   function_name     = aws_lambda_function.main.arn
-  event_source_arn  = var.sqs_queue_name
+  event_source_arn  = var.sqs_queue_arn
   batch_size        = var.batch_size
   enabled           = true
 
