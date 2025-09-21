@@ -15,6 +15,6 @@ aws_region              = "sa-east-1"
 #Variaveis do bucket S3 e Glue
 s3_bucket_name          = "rocket-project-dev-bucket-idempotency"
 aws_statefile_s3_bucket = "rocket-project-statefiles"
-aws_lock_dynamodb_table = "rocket-project-terraform-lock"
+aws_lock_dynamodb_table = "rocket-projec-terraform-lock"
 data_output_bucket_name = "rocket-project-dev-spec-data-bucket"
 glue_job_name           = "rocket-project-dev-processing-job"
