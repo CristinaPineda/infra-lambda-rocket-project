@@ -68,7 +68,7 @@ jobs:
         if: inputs.destroy == true
         id: terraform-destroy
         run: |
-          terraform workspace select -or-create ${{ inputs.environment }} && \
+          terraform workspace select ${{ inputs.environment }} && \
           terraform destroy \
             -var="environment=${{ inputs.environment }}" \
             -var-file="infra/envs/${{ inputs.environment }}/terraform.tfvars" \
