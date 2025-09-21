@@ -16,6 +16,7 @@ def handler(event, context):
     e inicia um job Glue.
     """
     if 'Records' not in event:
+        print(event)
         print("Aviso: O evento não contém registros SQS. Encerrando.")
         return {'statusCode': 200}
 
@@ -27,13 +28,14 @@ def handler(event, context):
             if not sns_message_str:
                 print(f"Aviso: Mensagem SNS não encontrada. Pular.")
                 continue
-
-            sns_message = json.loads(sns_message_str)
             
             # --- Lógica de Idempotência ---
-            # O MessageId do SNS é o nosso identificador único para idempotência
-            message_id = sqs_body.get('MessageId')
-            
+            message_id = record.get('messageId')
+
+            if not message_id:
+                print(f"Aviso: MessageId não encontrado no registro. Pular.")
+                continue
+
             # 1. Tente encontrar o arquivo de ID no bucket de idempotência
             try:
                 s3_client.head_object(Bucket=IDEMPOTENCY_BUCKET, Key=message_id)
@@ -51,8 +53,7 @@ def handler(event, context):
                     raise e
 
             # --- Lógica para Iniciar o Job Glue ---
-            # Assume que o payload do SNS contém os argumentos necessários
-            # ajuste conforme a sua estrutura de dados
+            sns_message = json.loads(sns_message_str)
             args_glue = {
                 '--ano': sns_message.get('ano'),
                 '--mes': sns_message.get('mes'),
@@ -60,7 +61,6 @@ def handler(event, context):
                 '--data_bucket_name_output': DATA_BUCKET_OUTPUT,
             }
             
-            # Validação dos argumentos
             if not all(args_glue.values()):
                 raise ValueError("Payload do SNS não contém todos os argumentos necessários.")
             
