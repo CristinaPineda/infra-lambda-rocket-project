@@ -79,7 +79,7 @@ jobs:
         if: inputs.destroy == false
         id: terraform-plan
         run: |
-          terraform workspace select -or-create ${{ inputs.environment }} && \
+          terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} && \
           terraform plan \
             -var="environment=${{ inputs.environment }}" \
             -var-file="infra/envs/${{ inputs.environment }}/terraform.tfvars" \
