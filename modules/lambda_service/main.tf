@@ -1,8 +1,7 @@
-
-# Data source para buscar a fila SQS existente
-data "aws_sqs_queue" "source_queue" {
-  name = var.sqs_queue_name
+data "aws_s3_bucket" "bucket" {
+  bucket = var.s3_bucket_name
 }
+
 # Data source para empacotar o código da função Lambda
 data "archive_file" "lambda_zip" {
   type        = "zip"
@@ -30,6 +29,7 @@ resource "aws_lambda_function" "main" {
     variables = {
       IDEMPOTENCY_BUCKET_NAME = var.s3_bucket_name
       GLUE_JOB_NAME           = var.glue_job_name
+      DATA_BUCKET_OUTPUT      = var.data_output_bucket_name
     }
   }
 }
