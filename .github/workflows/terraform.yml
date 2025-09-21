@@ -24,7 +24,7 @@ on:
       destroy:
         type: boolean
         required: false
-        default: false
+        default: true
         description: "Define se o comando 'terraform destroy' deve ser executado (true para destruir, false para plan/apply)"
 
 jobs:
