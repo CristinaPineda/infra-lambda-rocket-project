@@ -71,7 +71,7 @@ jobs:
           terraform workspace select -or-create ${{ inputs.environment }} && \
           terraform destroy \
             -var="environment=${{ inputs.environment }}" \
-            -var-file="envs/${{ inputs.environment }}/terraform.tfvars" \
+            -var-file="infra/envs/${{ inputs.environment }}/terraform.tfvars" \
             -auto-approve \
             -lock=false
 
