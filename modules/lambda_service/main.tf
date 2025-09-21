@@ -1,9 +1,6 @@
 data "aws_s3_bucket" "bucket" {
   bucket = var.s3_bucket_name
 }
-data "aws_sqs_queue" "source_queue" {
-  name = var.sqs_queue_arn
-}
 
 # Data source para empacotar o código da função Lambda
 data "archive_file" "lambda_zip" {
@@ -41,7 +38,7 @@ resource "aws_lambda_function" "main" {
 # Conecta a função Lambda à fila SQS
 resource "aws_lambda_event_source_mapping" "sqs_mapping" {
   function_name     = aws_lambda_function.main.arn
-  event_source_arn  = data.aws_sqs_queue.source_queue.arn
+  event_source_arn  = var.sqs_queue_name
   batch_size        = var.batch_size
   enabled           = true
 
