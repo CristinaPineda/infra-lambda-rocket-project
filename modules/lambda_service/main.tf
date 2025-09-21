@@ -1,7 +1,11 @@
-data "aws_s3_bucket" "bucket" {
+resource "aws_s3_bucket" "idempotency_bucket" {
   bucket = var.s3_bucket_name
-}
 
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
 # Data source para empacotar o código da função Lambda
 data "archive_file" "lambda_zip" {
   type        = "zip"
