@@ -5,7 +5,7 @@ data "aws_s3_bucket" "bucket" {
 # Data source para empacotar o código da função Lambda
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = "infra-lambda-rocket-project/lambda_function"
+  source_dir  = "${path.root}/lambda_function"
   output_path = "lambda_function.zip"
 }
 
