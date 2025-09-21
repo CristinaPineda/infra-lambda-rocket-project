@@ -3,11 +3,6 @@ variable "sqs_queue_name" {
   type        = string
   
 }
-variable "sqs_queue_arn" {
-  description = "The ARN of the SQS queue."
-  type        = string
-}
-
 variable "lambda_function_name" {
   description = "The name of the Lambda function."
   type        = string
