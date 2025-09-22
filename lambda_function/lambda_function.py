@@ -62,6 +62,7 @@ def handler(event, context):
 
             # --- Lógica para Iniciar o Job Glue ---
             sns_message = json.loads(sns_message_str)
+            print("Conteúdo da Mensagem do SNS:", sns_message) 
             args_glue = {
                 '--ano': sns_message.get('ano'),
                 '--mes': sns_message.get('mes'),
