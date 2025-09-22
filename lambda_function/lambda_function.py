@@ -26,7 +26,6 @@ def handler(event, context):
         try:
             sqs_body = json.loads(record['body'])
             sns_message_str = sqs_body.get('Message')
-            print("Conteúdo da Mensagem do SNS:", sns_message) 
             
             if not sns_message_str:
                 print(f"Aviso: Mensagem SNS não encontrada. Pular.")
