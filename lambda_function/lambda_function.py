@@ -9,7 +9,7 @@ s3_client = boto3.client('s3')
 GLUE_JOB_NAME = os.environ.get('GLUE_JOB_NAME')
 IDEMPOTENCY_BUCKET = os.environ.get('IDEMPOTENCY_BUCKET_NAME')
 DATA_BUCKET_OUTPUT = os.environ.get('DATA_BUCKET_OUTPUT')
-print(f"Variáveis de ambiente - GLUE_JOB_NAME: {GLUE_JOB_NAME}, IDEMPOTENCY_BUCKET: {IDEMPOTENCY_BUCKET}, DATA_BUCKET_OUTPUT: {DATA_BUCKET_OUTPUT}")
+print("Variáveis de ambiente carregadas:", os.environ)
 
 def handler(event, context):
     """
