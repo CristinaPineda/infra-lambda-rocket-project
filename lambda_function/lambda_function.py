@@ -21,6 +21,7 @@ def handler(event, context):
         return {'statusCode': 200}
 
     for record in event['Records']:
+        print(record)
         try:
             sqs_body = json.loads(record['body'])
             sns_message_str = sqs_body.get('Message')
@@ -70,6 +71,8 @@ def handler(event, context):
                 JobName=GLUE_JOB_NAME,
                 Arguments=args_glue
             )
+
+            print(f"Resposta do Glue: {response}")
             
             print(f"Job Glue iniciado com sucesso. Run ID: {response['JobRunId']}")
             
