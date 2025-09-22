@@ -39,16 +39,24 @@ resource "aws_iam_role_policy" "lambda_s3_policy" {
     Version = "2012-10-17"
     Statement = [
       {
+        # Permissões para arquivos dentro do bucket
         Action = [
           "s3:GetObject",
           "s3:PutObject",
           "s3:DeleteObject"
         ]
         Effect = "Allow"
-        Resource = [
-          "arn:aws:s3:::${var.s3_bucket_name}",
-          "arn:aws:s3:::${var.s3_bucket_name}/*"
+        # O asterisco no final é crucial para objetos
+        Resource = "arn:aws:s3:::${var.s3_bucket_name}/*"
+      },
+      {
+        # Permissão para o próprio bucket (necessária para listagem)
+        Action = [
+          "s3:ListBucket"
         ]
+        Effect = "Allow"
+        # O caminho sem o asterisco no final
+        Resource = "arn:aws:s3:::${var.s3_bucket_name}"
       }
     ]
   })
